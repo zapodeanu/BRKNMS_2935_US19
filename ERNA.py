@@ -450,7 +450,7 @@ def main():
     data_to_append = str('\n\n' + date_time) + ',' + last_person_email + ',' + log_ipd_info + ',' + approver_email
     data_to_append += ',' + log_dc_info + ',' + log_remote_info + ',' + log_templ_depl_info + ','
     data_to_append += log_path_trace + ',' + log_asav_info + ',\n' + snow_incident
-    data_to_append.replace('\n\n', '\n')
+    data_to_append.replace('\n\n', '')
     access_log_file.write(data_to_append)
     access_log_file.close()
 
