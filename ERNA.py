@@ -172,9 +172,9 @@ def main():
     location_list_info = device_location.split('/')
     remote_device_location = location_list_info[-1]  # select the building name
 
-    log_ipd_info = '\nThe IPD is connected to this device: ' + remote_device_hostname
-    log_ipd_info += '\nThis interface: ' + interface_name + ', access VLAN: ' + vlan_number
-    log_ipd_info += '\nLocated       : ' + remote_device_location
+    log_ipd_info = '\n\nThe IPD is connected to this device: ' + remote_device_hostname
+    log_ipd_info += '\n\nThis interface: ' + interface_name + ', access VLAN: ' + vlan_number
+    log_ipd_info += '\n\nLocated       : ' + remote_device_location
     print(log_ipd_info)
 
     # request approval
@@ -209,7 +209,7 @@ def main():
     # execute UCSD workflow to connect VDI to VLAN, power on VDI
     # ucsd_apis.execute_ucsd_workflow(ucsd_key, UCSD_CONNECT_FLOW)
 
-    log_ucsd_info = '\nUCSD connect flow executed'
+    log_ucsd_info = '\n\nUCSD connect flow executed'
     print(log_ucsd_info)
 
     # deployment of cli configuration files to the dc router
@@ -228,15 +228,15 @@ def main():
     dc_valid = dnac_apis.check_ipv4_duplicate(dc_config_file)
     log_dc_info = ''
     if dc_valid is False:
-        print('\nDC Router CLI Template validated')
-        log_dc_info = '\nDC Router CLI Templates validated'
+        print('\n\nDC Router CLI Template validated')
+        log_dc_info = '\n\nDC Router CLI Templates validated'
 
     dnac_apis.upload_template(dc_config_templ, template_project, cli_config, dnac_token)  # upload the template to DNA C
     depl_id_dc = dnac_apis.deploy_template(dc_config_templ, template_project, dc_device_hostname, dnac_token)  # deploy dc template
 
-    log_dc_info += '\nDeployment of the configurations to the DC router, ' + dc_device_hostname
+    log_dc_info += '\n\nDeployment of the configurations to the DC router, ' + dc_device_hostname
     log_dc_info += ' started, deployment id: ' + depl_id_dc
-    log_dc_config = 'DC Router Config \n' + cli_config
+    log_dc_config = 'DC Router Config \n\n' + cli_config
     print(log_dc_info)
 
     time.sleep(1)
@@ -265,16 +265,16 @@ def main():
     remote_valid = dnac_apis.check_ipv4_duplicate(remote_updated_config_file)
     log_remote_info = ''
     if remote_valid is False:
-        log_remote_info = '\nRemote Device CLI Template validated'
+        log_remote_info = '\n\nRemote Device CLI Template validated'
         print(log_remote_info)
 
     dnac_apis.upload_template(remote_config_templ, template_project, cli_config, dnac_token)  # upload the template to DNA C
     depl_id_remote = dnac_apis.deploy_template(remote_config_templ, template_project, remote_device_hostname, dnac_token)   # deploy remote template
     time.sleep(1)
 
-    log_remote_info += '\nDeployment of the configurations to the Remote device, ' + remote_device_hostname
+    log_remote_info += '\n\nDeployment of the configurations to the Remote device, ' + remote_device_hostname
     log_remote_info += ' started, deployment id: ' + depl_id_remote
-    log_remote_config = 'Remote Device Config \n' + cli_config
+    log_remote_config = 'Remote Device Config \n\n' + cli_config
     print(log_remote_info)
 
     time.sleep(1)
@@ -286,7 +286,7 @@ def main():
     dc_status = dnac_apis.check_template_deployment_status(depl_id_dc, dnac_token)
     remote_status = dnac_apis.check_template_deployment_status(depl_id_remote, dnac_token)
 
-    log_templ_depl_info = '\nTemplates deployment status DC: ' + dc_status + ', Remote: ' + remote_status
+    log_templ_depl_info = '\n\nTemplates deployment status DC: ' + dc_status + ', Remote: ' + remote_status
     print(log_templ_depl_info)
 
     if dc_status == 'SUCCESS' and remote_status == 'SUCCESS':
@@ -305,9 +305,9 @@ def main():
     dc_router_tunnel = netconf_restconf.get_restconf_int_oper_status('Tunnel201')
     remote_router_tunnel = netconf_restconf.get_netconf_int_oper_status('Tunnel201')
 
-    log_tunnel_info = '\nThe Tunnel 201 interfaces operational state: '
-    log_tunnel_info += '\nFrom ' + remote_device_hostname + ' using NETCONF - ' + dc_router_tunnel
-    log_tunnel_info += '\nFrom ' + dc_device_hostname + ' using RESTCONF - ' + remote_router_tunnel
+    log_tunnel_info = '\n\nThe Tunnel 201 interfaces operational state: '
+    log_tunnel_info += '\n\nFrom ' + remote_device_hostname + ' using NETCONF - ' + dc_router_tunnel
+    log_tunnel_info += '\n\nFrom ' + dc_device_hostname + ' using RESTCONF - ' + remote_router_tunnel
 
     print(log_tunnel_info)
 
@@ -324,8 +324,8 @@ def main():
 
     path_trace_info = dnac_apis.get_path_trace_info(path_trace_id, dnac_token)
 
-    log_path_trace = '\nPath Trace status: ' + path_trace_info[0]
-    log_path_trace += '\nPath Trace details: ' + str(path_trace_info[1])
+    log_path_trace = '\n\nPath Trace status: ' + path_trace_info[0]
+    log_path_trace += '\n\nPath Trace details: ' + str(path_trace_info[1])
     print(log_path_trace)
 
     # create ASAv outside interface ACL to allow traffic
@@ -333,9 +333,9 @@ def main():
     outside_acl_id = asav_apis.get_asav_access_list(OUTSIDE_INT)
     asav_status = asav_apis.create_asav_access_list(outside_acl_id, OUTSIDE_INT, VDI_IP, IPD_IP)
     if asav_status == 201:
-        log_asav_info = '\nASAv access list updated to allow traffic from ' + VDI_IP + ' to ' + IPD_IP + ' on the interface ' + OUTSIDE_INT
+        log_asav_info = '\n\nASAv access list updated to allow traffic from ' + VDI_IP + ' to ' + IPD_IP + ' on the interface ' + OUTSIDE_INT
     else:
-        log_asav_info = '\nError updating the ASAv access list on the interface ' + OUTSIDE_INT
+        log_asav_info = '\n\nError updating the ASAv access list on the interface ' + OUTSIDE_INT
     print(log_asav_info)
 
     # Webex Teams notification
@@ -343,7 +343,7 @@ def main():
     webex_teams_apis.post_space_message(ROOM_NAME, 'Requested access to this device: IPD, located in our office: ' +
                                         remote_device_location + ' by user ' + last_person_email + ' has been granted for '
                                         + str(int(timer / 60)) + ' minutes')
-    log_access_info = '\nRequested access to this device: IPD, located in our office: '
+    log_access_info = '\n\nRequested access to this device: IPD, located in our office: '
     log_access_info += remote_device_location + ' by user: ' + last_person_email + ' has been granted for ' + str(int(timer / 60)) + ' minutes'
 
     # create and update ServiceNow incident
@@ -379,7 +379,7 @@ def main():
     depl_id_dc_rem = dnac_apis.deploy_template(dc_rem_templ, template_project, dc_device_hostname, dnac_token)
 
     print('\nDC Router restored to the baseline configuration')
-    log_remove_info = '\nDC Router restored to the baseline configuration'
+    log_remove_info = '\n\nDC Router restored to the baseline configuration'
 
     time.sleep(1)
 
@@ -407,7 +407,7 @@ def main():
     depl_id_remote_rem = dnac_apis.deploy_template(remote_rem_templ, template_project, remote_device_hostname, dnac_token)
 
     print('\nRemote Router restored to the baseline configuration')
-    log_remove_info += '\nRemote Device restored to the baseline configuration'
+    log_remove_info += '\n\nRemote Device restored to the baseline configuration'
 
     time.sleep(1)
 
@@ -416,7 +416,7 @@ def main():
     outside_acl_id = asav_apis.get_asav_access_list(OUTSIDE_INT)
     asav_status = asav_apis.delete_asav_access_list(outside_acl_id, OUTSIDE_INT)
     if asav_status == 204:
-        log_asav_remove_info = '\nASAv access list on the interface ' + OUTSIDE_INT + ' restored to the baseline configuration'
+        log_asav_remove_info = '\n\nASAv access list on the interface ' + OUTSIDE_INT + ' restored to the baseline configuration'
     else:
         log_asav_remove_info = 'Error while restoring the ASAv access list on the interface ' + OUTSIDE_INT
     print(log_asav_remove_info)
@@ -424,7 +424,7 @@ def main():
     # execute UCSD workflow to disconnect VDI to VLAN, power on VDI
     # ucsd_apis.execute_ucsd_workflow(ucsd_key, UCSD_DISCONNECT_FLOW)
 
-    log_ucsd_remove_info = '\nUCSD disconnect flow executed'
+    log_ucsd_remove_info = '\n\nUCSD disconnect flow executed'
     print(log_ucsd_remove_info)
 
     # sync the remote and DC device
@@ -433,9 +433,9 @@ def main():
 
     log_sync_info = ''
     if dc_sync_status == 202:
-        log_sync_info = '\nDNA Center started the DC Router resync'
+        log_sync_info = '\n\nDNA Center started the DC Router resync'
     if remote_sync_status == 202:
-        log_sync_info += '\nDNA Center started the Remote Router resync'
+        log_sync_info += '\n\nDNA Center started the Remote Router resync'
 
     print(log_sync_info)
 
@@ -450,6 +450,7 @@ def main():
     data_to_append = str('\n\n' + date_time) + ',' + last_person_email + ',' + log_ipd_info + ',' + approver_email
     data_to_append += ',' + log_dc_info + ',' + log_remote_info + ',' + log_templ_depl_info + ','
     data_to_append += log_path_trace + ',' + log_asav_info + ',\n' + snow_incident
+    data_to_append.replace('\n\n', '\n')
     access_log_file.write(data_to_append)
     access_log_file.close()
 

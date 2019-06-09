@@ -185,3 +185,17 @@ Path Trace status: COMPLETED
 Path Trace details: ['172.16.202.1', 'PDX-RO', 'Tunnel201', 'Tunnel201', 'NYC-9300', 'GigabitEthernet1/0/1', '10.93.140.35'],
 ASAv access list updated to allow traffic from 172.16.203.50 to 10.93.140.35 on the interface outside,
 INC0011071
+
+2019-06-08 21:39:49,gzapodea@cisco.com,
+The IPD is connected to this device: NYC-9300
+This interface: GigabitEthernet1/0/1, access VLAN: 123
+Located       : NYC,gabi@cisco.com,
+DC Router CLI Templates validated
+Deployment of the configurations to the DC router, PDX-RO started, deployment id: 1c8c1c37-a3d5-47f4-a25c-222306f95d12,
+Remote Device CLI Template validated
+Deployment of the configurations to the Remote device, NYC-9300 started, deployment id: 697173e8-c813-4772-900f-c30e804e090d,
+Templates deployment status DC: SUCCESS, Remote: SUCCESS,
+Path Trace status: COMPLETED
+Path Trace details: ['172.16.202.1', 'PDX-RO', 'Tunnel201', 'Tunnel201', 'NYC-9300', 'GigabitEthernet1/0/1', '10.93.140.35'],
+ASAv access list updated to allow traffic from 172.16.203.50 to 10.93.140.35 on the interface outside,
+INC0011072
