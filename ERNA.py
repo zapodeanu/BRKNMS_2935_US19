@@ -349,7 +349,7 @@ def main():
     # create and update ServiceNow incident
 
     snow_user = 'ERNA'
-    snow_description = 'Vendor Remote Access - ERNA Automation: ' + IPD_IP
+    snow_description = 'ERNA Automation - Vendor Remote Access to IPD: ' + IPD_IP
 
     snow_incident = service_now_apis.create_incident(snow_description, log_ipd_info, snow_user, '2')
     comments = log_ucsd_info + log_dc_info + log_dc_config + log_remote_info + log_remote_config + log_templ_depl_info
