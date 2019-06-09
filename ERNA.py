@@ -50,7 +50,7 @@ urllib3.disable_warnings(InsecureRequestWarning)  # disable insecure https warni
 # The following declarations need to be updated based on your lab environment
 
 # Webex Teams related
-ROOM_NAME = 'ERNA'
+ROOM_NAME = 'ERNA Automation'
 
 
 # UCSD related
@@ -447,11 +447,13 @@ def main():
     # update the database with script execution
 
     access_log_file = open('access_logs.csv', 'a')
-    data_to_append = str('\n\n' + date_time) + ',' + last_person_email + ',' + log_ipd_info + ',' + approver_email
+    data_to_append = str('\n\n' + date_time) + ','
+    access_log_file.write(data_to_append)
+    data_to_append = last_person_email + ',' + log_ipd_info + ',' + approver_email
     data_to_append += ',' + log_dc_info + ',' + log_remote_info + ',' + log_templ_depl_info + ','
     data_to_append += log_path_trace + ',' + log_asav_info + ',\n' + snow_incident
-    data_to_append.replace('\n\n', '')
-    access_log_file.write(data_to_append)
+    data_to_append_nolines = data_to_append.replace('\n\n', '\n')
+    access_log_file.write(data_to_append_nolines)
     access_log_file.close()
 
     print('\nRecords database updated, file saved')
