@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 
-# developed by Gabi Zapodeanu, TME, Enterprise Networks, Cisco Systems
+# developed by Gabi Zapodeanu, TME, Enterprise Networking, Cisco Systems
 
 
 # This file contains the ServiceNow functions to be used during the demo
